@@ -128,14 +128,14 @@ output "apps_domain" {
 #   value = "${module.pas.ws_router_pool}"
 # }
 #
-# output "ssh_lb_name" {
-#   value = "${module.pas.ssh_lb_name}"
-# }
+output "ssh_lb_name" {
+  value = "${module.pas.ssh_lb_name}"
+}
 #
 # output "ssh_router_pool" {
 #   value = "${module.pas.ssh_router_pool}"
 # }
-#
+
 # output "tcp_lb_name" {
 #   value = "${module.pas.tcp_lb_name}"
 # }
@@ -192,21 +192,21 @@ output "services_subnet" {
   value = "${module.pas.services_subnet_name}"
 }
 
-# output "web_lb_name" {
-#   value = "${module.pas.lb_name}"
-# }
+output "web_lb_name" {
+  value = "${module.pas.lb_name}"
+}
+#
+output "http_lb_backend_name" {
+  value = "${module.pas.lb_name}"
+}
 
-# output "http_lb_backend_name" {
-#   value = "${module.pas.lb_name}"
-# }
-#
-# output "cf_ws_address" {
-#   value = "${module.pas.cf_ws_address}"
-# }
-#
-# output "haproxy_static_ip" {
-#   value = "${module.pas.haproxy_static_ip}"
-# }
+output "cf_ws_address" {
+  value = "${module.pas.cf_ws_address}"
+}
+
+output "haproxy_static_ip" {
+  value = "${module.pas.haproxy_static_ip}"
+}
 
 # Certificates
 
@@ -222,13 +222,13 @@ output "ssl_private_key" {
 
 # Isolation Segment
 
-# output "isoseg_domain" {
-#   value = "${module.isolation_segment.domain}"
-# }
-#
-# output "isoseg_lb_backend_name" {
-#   value = "${module.isolation_segment.load_balancer_name}"
-# }
+output "isoseg_domain" {
+  value = "${module.isolation_segment.domain}"
+}
+
+output "isoseg_lb_backend_name" {
+  value = "${module.isolation_segment.load_balancer_name}"
+}
 
 output "iso_seg_ssl_cert" {
   sensitive = true
@@ -240,9 +240,9 @@ output "iso_seg_ssl_private_key" {
   value     = "${module.isoseg_certs.ssl_private_key}"
 }
 
-# output "iso_seg_haproxy_static_ip" {
-#   value = "${module.isolation_segment.haproxy_static_ip}"
-# }
+output "iso_seg_haproxy_static_ip" {
+  value = "${module.isolation_segment.haproxy_static_ip}"
+}
 
 # External Database
 

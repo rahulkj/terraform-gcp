@@ -40,6 +40,7 @@ module "ops_manager" {
 
   pcf_network_name = "${module.infra.network}"
   subnet           = "${module.infra.subnet}"
+  infra_cidr_range = "${module.infra.ip_cidr_range}"
 
   dns_zone_name     = "${module.infra.dns_zone_name}"
   dns_zone_dns_name = "${module.infra.dns_zone_dns_name}"
