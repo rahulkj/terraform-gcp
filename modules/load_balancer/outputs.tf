@@ -1,5 +1,5 @@
 output "name" {
-  value = "${element(concat(google_compute_target_pool.lb.*.name, list("")), 0)}"
+  value = "${element(concat(google_compute_region_backend_service.lb.*.name, list("")), 0)}"
 }
 
 output "backend_service_name" {
@@ -11,9 +11,9 @@ output "address" {
 }
 
 output "health_check_self_link" {
-  value = "${element(concat(google_compute_http_health_check.lb.*.self_link, list("")), 0)}"
+  value = "${element(concat(google_compute_health_check.lb.*.self_link, list("")), 0)}"
 }
 
 output "global_address" {
-  value = "${element(concat(google_compute_global_address.lb.*.address, list("")), 0)}"
+  value = "${element(concat(google_compute_address.lb.*.address, list("")), 0)}"
 }

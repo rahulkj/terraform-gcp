@@ -1,6 +1,6 @@
-# output "cf_public_health_check" {
-#   value = "${module.gorouter.health_check_self_link}"
-# }
+output "cf_public_health_check" {
+  value = "${module.gorouter.health_check_self_link}"
+}
 
 output "sys_domain" {
   value = "${replace(replace(google_dns_record_set.wildcard-sys-dns.name, "/^\\*\\./", ""), "/\\.$/", "")}"
@@ -33,10 +33,10 @@ output "resources_bucket" {
 # output "ws_router_pool" {
 #   value = "${module.websocket.name}"
 # }
-#
-# output "ssh_lb_name" {
-#   value = "${module.ssh-lb.name}"
-# }
+
+output "ssh_lb_name" {
+  value = "${module.ssh-lb.name}"
+}
 #
 # output "ssh_router_pool" {
 #   value = "${module.ssh-lb.name}"
@@ -74,17 +74,17 @@ output "services_subnet_name" {
   value = "${google_compute_subnetwork.services.name}"
 }
 
-# output "lb_name" {
-#   value = "${var.global_lb > 0 ? module.gorouter.backend_service_name : module.gorouter.name}"
-# }
-#
-# output "cf_ws_address" {
-#   value = "${module.websocket.address}"
-# }
-#
-# output "haproxy_static_ip" {
-#   value = "${local.haproxy_static_ip}"
-# }
+output "lb_name" {
+  value = "${var.global_lb > 0 ? module.gorouter.backend_service_name : module.gorouter.name}"
+}
+
+output "cf_ws_address" {
+  value = "${module.websocket.address}"
+}
+
+output "haproxy_static_ip" {
+  value = "${local.haproxy_static_ip}"
+}
 
 output "sql_username" {
   value = "${element(concat(random_id.pas_db_username.*.b64, list("")), 0)}"

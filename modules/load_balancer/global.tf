@@ -21,7 +21,7 @@ resource "google_compute_backend_service" "http_lb_backend_service" {
     group = "${google_compute_instance_group.httplb.2.self_link}"
   }
 
-  health_checks = ["${google_compute_http_health_check.lb.*.self_link}"]
+  health_checks = ["${google_compute_health_check.lb.*.self_link}"]
 
   count = "${local.count}"
 }
@@ -34,12 +34,14 @@ resource "google_compute_instance_group" "httplb" {
   zone        = "${element(var.zones, count.index)}"
 }
 
-resource "google_compute_global_address" "lb" {
+resource "google_compute_address" "http_lb" {
   name = "${var.lb_name}"
+  project = "${var.project}"
 
-  # address_type = "INTERNAL"
-  # address = "${var.lb_address}"
+  address_type = "INTERNAL"
+  address = "${cidrhost(var.ip_cidr_range, -14)}"
 
+  subnetwork = "${var.deploy_network}"
   count = "${local.count}"
 }
 
@@ -68,20 +70,34 @@ resource "google_compute_target_https_proxy" "https_lb_proxy" {
   count = "${local.count}"
 }
 
-resource "google_compute_global_forwarding_rule" "cf_http" {
+resource "google_compute_forwarding_rule" "cf_http" {
   name       = "${var.env_name}-cf-lb-http"
-  ip_address = "${google_compute_global_address.lb.address}"
-  target     = "${google_compute_target_http_proxy.http_lb_proxy.self_link}"
-  port_range = "80"
+  ip_address = "${google_compute_address.http_lb.address}"
+  backend_service = "${google_compute_region_backend_service.lb.self_link}"
+
+  ports = ["80"]
+
+  load_balancing_scheme = "INTERNAL"
+
+  project = "${var.project}"
+  network = "${var.network}"
+  subnetwork = "${var.deploy_network_link}"
 
   count = "${local.count}"
 }
 
-resource "google_compute_global_forwarding_rule" "cf_https" {
+resource "google_compute_forwarding_rule" "cf_https" {
   name       = "${var.env_name}-cf-lb-https"
-  ip_address = "${google_compute_global_address.lb.address}"
-  target     = "${google_compute_target_https_proxy.https_lb_proxy.self_link}"
-  port_range = "443"
+  ip_address = "${google_compute_address.http_lb.address}"
+  backend_service = "${google_compute_region_backend_service.lb.self_link}"
+
+  ports = ["443"]
+
+  load_balancing_scheme = "INTERNAL"
+
+  project = "${var.project}"
+  network = "${var.network}"
+  subnetwork = "${var.deploy_network_link}"
 
   count = "${local.count}"
 }

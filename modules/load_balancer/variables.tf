@@ -75,3 +75,9 @@ variable "ssl_certificate" {
 variable "optional_target_tag" {
   default = ""
 }
+
+variable "deploy_network" {}
+
+variable "deploy_network_link" {}
+
+variable "ip_cidr_range" {}

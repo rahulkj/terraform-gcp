@@ -45,3 +45,5 @@ variable "sql_instance" {
 variable "opsman_sql_db_host" {
   default = ""
 }
+
+variable "infra_cidr_range" {}
